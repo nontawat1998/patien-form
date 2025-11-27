@@ -35,7 +35,6 @@ import { Avatar, AvatarImage } from "@/components/ui/avatar";
 import { toast } from "sonner";
 import { CreatePatienFormInput } from "@/server/api/routers/patienForm.input";
 import { createClient } from "@supabase/supabase-js";
-import { useSearchParams } from "next/navigation";
 
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || "";
 const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || "";
@@ -46,11 +45,11 @@ type DraftField = {
   value: string;
 };
 
-export default function ClientPage() {
+export default function ClientPage({ permission }: { permission?: string }) {
   return (
     <div className="flex flex-col gap-4">
       <CardTop />
-      <CardForm />
+      <CardForm permission={permission} />
     </div>
   );
 }
@@ -88,12 +87,12 @@ function CardTop() {
     </Card>
   );
 }
-
-function CardForm() {
+type CardFormProps = {
+  permission?: string;
+};
+function CardForm({ permission }: CardFormProps) {
   const formId = React.useId();
   const [formToSupabase, setFormToSupabase] = useState<Record<string, any>>({});
-  const searchParams = useSearchParams();
-  const permission = searchParams.get("permission");
   const form = useForm({
     resolver: zodResolver(CreatePatienFormInput),
     defaultValues: {
