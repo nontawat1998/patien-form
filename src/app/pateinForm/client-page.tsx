@@ -45,17 +45,6 @@ type DraftField = {
   field: string;
   value: string;
 };
-let lastUserId: number;
-const { data, error } = await supabase
-  .from("patienForm_draft")
-  .select("*")
-  .order("user_id", { ascending: false })
-  .limit(1);
-if (error) console.error(error);
-
-if (data && data.length > 0) {
-  lastUserId = data[0].user_id;
-}
 
 export default function ClientPage() {
   return (
@@ -130,8 +119,19 @@ function CardForm() {
       await utils.patienForm.list.invalidate();
     },
   });
+  const [lastUserId, setLastUserId] = useState<number>(0);
+
   useEffect(() => {
-    
+    const fetchLastUserId = async () => {
+    const { data, error } = await supabase
+      .from("patienForm_draft")
+      .select("*")
+      .order("user_id", { ascending: false })
+      .limit(1);
+    if (error) return console.error(error);
+    if (data && data.length > 0) setLastUserId(data[0].user_id);
+  };
+  fetchLastUserId();
     const channel = supabase
       .channel("public:patienForm_draft")
       .on(

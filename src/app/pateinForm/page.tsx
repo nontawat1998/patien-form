@@ -1,4 +1,3 @@
-'use client';
 import { api, HydrateClient } from "@/lib/trpc/server";
 
 import ClientPage from "./client-page";
