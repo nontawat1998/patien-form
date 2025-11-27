@@ -1,36 +1,30 @@
-import { index, primaryKey, sqliteTable } from "drizzle-orm/sqlite-core";
-import { sql } from "drizzle-orm";
+import { pgTable, text, integer,uuid, timestamp } from "drizzle-orm/pg-core";
 
 
-export const patienForm = sqliteTable("patienForm", (d) => ({
-  id: d
-    .text()
+
+export const patienForm = pgTable("patient_form", {
+  id: uuid("id")
     .primaryKey()
-    .notNull()
-    .$defaultFn(() => crypto.randomUUID()),
+    .defaultRandom(),   
+  first_name: text("first_name").notNull(),
+  last_name: text("last_name").notNull(),
+  middle_name: text("middle_name"),
 
-  first_name: d.text().notNull(),
-  last_name: d.text().notNull(),
-  middle_name: d.text(),
-  date_of_birth: d.text().notNull(),
-  gender: d.text().notNull(),
-  nationality: d.text().notNull(),
-  preferred_language: d.text().notNull(),
-  religion:d.text(),
-  address: d.text().notNull(),
-  email: d.text().notNull(),
-  phone_number: d.text().notNull(),
-  emergency_name: d.text().notNull(),
-  emergency_relationship: d.text().notNull(),
-  archivedAt: d.integer({ mode: "timestamp" }),
+  date_of_birth: text("date_of_birth").notNull(),
 
-  createdAt: d
-    .integer({ mode: "timestamp" })
-    .notNull()
-    .default(sql`(unixepoch())`),
-  updatedAt: d
-    .integer({ mode: "timestamp" })
-    .notNull()
-    .default(sql`(unixepoch())`),
-  deletedAt: d.integer({ mode: "timestamp" }),
-}));
+  gender: text("gender").notNull(),
+  nationality: text("nationality").notNull(),
+  preferred_language: text("preferred_language").notNull(),
+  religion: text("religion"),
+
+  address: text("address").notNull(),
+  email: text("email").notNull(),
+  phone_number: text("phone_number").notNull(),
+
+  emergency_name: text("emergency_name").notNull(),
+  emergency_relationship: text("emergency_relationship").notNull(),
+
+  created_at: timestamp("created_at", { withTimezone: true })
+    .defaultNow()
+    .notNull(),
+});

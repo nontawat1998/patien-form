@@ -115,7 +115,6 @@ function CardForm({ permission }: CardFormProps) {
   const utils = api.useUtils();
   const create = api.patienForm.create.useMutation({
     async onSuccess() {
-      await utils.patienForm.list.invalidate();
     },
   });
   const [lastUserId, setLastUserId] = useState<number>(0);
@@ -162,7 +161,6 @@ function CardForm({ permission }: CardFormProps) {
       (async () => {
         const { error } = await supabase.from("patienForm").insert(data);
         if (error) throw error;
-        await utils.patienForm.list.invalidate();
         return data;
       })(),
       {

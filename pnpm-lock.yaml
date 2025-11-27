@@ -103,7 +103,7 @@ importers:
         version: 4.1.0
       drizzle-orm:
         specifier: ^0.41.0
-        version: 0.41.0(@libsql/client@0.14.0)(gel@2.1.1)
+        version: 0.41.0(@libsql/client@0.14.0)(gel@2.1.1)(postgres@3.4.7)
       lucide-react:
         specifier: ^0.545.0
         version: 0.545.0(react@19.2.0)
@@ -119,6 +119,9 @@ importers:
       nodemailer:
         specifier: ^7.0.9
         version: 7.0.9
+      postgres:
+        specifier: ^3.4.7
+        version: 3.4.7
       react:
         specifier: ^19.0.0
         version: 19.2.0
@@ -3274,6 +3277,10 @@ packages:
     resolution: {integrity: sha512-3Ybi1tAuwAP9s0r1UQ2J4n5Y0G05bJkpUIO0/bI9MhwmD70S5aTWbXGBwxHrelT+XM1k6dM0pk+SwNkpTRN7Pg==}
     engines: {node: ^10 || ^12 || >=14}
 
+  postgres@3.4.7:
+    resolution: {integrity: sha512-Jtc2612XINuBjIl/QTWsV5UvE8UHuNblcO3vVADSrKsrc6RqGX6lOW1cEo3CM2v0XG4Nat8nI+YM7/f26VxXLw==}
+    engines: {node: '>=12'}
+
   preact-render-to-string@5.2.3:
     resolution: {integrity: sha512-aPDxUn5o3GhWdtJtW0svRC2SS/l8D9MAgo2+AWml+BhDImb27ALf04Q2d+AHqUUOc6RdSXFIBVa2gxzgMKgtZA==}
     peerDependencies:
@@ -6137,10 +6144,11 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  drizzle-orm@0.41.0(@libsql/client@0.14.0)(gel@2.1.1):
+  drizzle-orm@0.41.0(@libsql/client@0.14.0)(gel@2.1.1)(postgres@3.4.7):
     optionalDependencies:
       '@libsql/client': 0.14.0
       gel: 2.1.1
+      postgres: 3.4.7
 
   dunder-proto@1.0.1:
     dependencies:
@@ -7136,6 +7144,8 @@ snapshots:
       nanoid: 3.3.11
       picocolors: 1.1.1
       source-map-js: 1.2.1
+
+  postgres@3.4.7: {}
 
   preact-render-to-string@5.2.3(preact@10.11.3):
     dependencies:
