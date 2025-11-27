@@ -36,6 +36,7 @@ import { toast } from "sonner";
 import { CreatePatienFormInput } from "@/server/api/routers/patienForm.input";
 import { createClient } from "@supabase/supabase-js";
 import { useSearchParams } from "next/navigation";
+import { number } from "zod";
 
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || "";
 const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || "";
@@ -43,7 +44,7 @@ const supabase = createClient(supabaseUrl, supabaseAnonKey);
 type DraftField = {
   user_id: number;
   field: string;
-  value: any;
+  value: string;
 };
 let lastUserId: number;
 const { data, error } = await supabase
@@ -103,7 +104,6 @@ function CardTop() {
 function CardForm() {
   const formId = React.useId();
   const [formToSupabase, setFormToSupabase] = useState<Record<string, any>>({});
-  const [drafts, setDrafts] = useState<any[]>([]);
   const searchParams = useSearchParams();
   const permission = searchParams.get("permission");
   const form = useForm({
