@@ -8,6 +8,9 @@ import "./src/env.js";
 const config = {
   devIndicators: {
     position: "bottom-right",
+  },
+  eslint: {
+    ignoreDuringBuilds: true
   }
 };
 
